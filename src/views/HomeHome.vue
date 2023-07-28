@@ -6,15 +6,15 @@
         <h1>{{ currentTime }}</h1>
       </v-col>
       <v-col cols="12">
-        <v-btn @click="up">上一首</v-btn>
+        <v-btn @click="up">上一首鈴聲</v-btn>
         <v-img :src="settings.selectsdImg" :height="350" :width="350" cover
           style="display: inline-block; border-radius: 45%;"></v-img>
-        <v-btn @click="down">下一首</v-btn>
+        <v-btn @click="down">下一首鈴聲</v-btn>
       </v-col>
       <v-col cols="12">
-        <v-btn variant="text" v-if="status !== STATUS.COUNTING" icon="mdi-play" @click="startTimer"> </v-btn>
-        <v-btn variant="text" v-if="status === STATUS.COUNTING" icon="mdi-pause" @click="pauseTimer"> </v-btn>
-        <v-btn variant="text" v-if="currentItem.length > 0" icon="mdi-skip-next" @click="finishTimer"> </v-btn>
+        <v-btn variant="text" v-if="status !== STATUS.COUNTING" prepend-icon="mdi-play" @click="startTimer">開始</v-btn>
+        <v-btn variant="text" v-if="status === STATUS.COUNTING" prepend-icon="mdi-pause" @click="pauseTimer">暫停</v-btn>
+        <v-btn variant="text" v-if="currentItem.length > 0" prepend-icon="mdi-skip-next" @click="finishTimer">跳過</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -101,6 +101,9 @@ const up = () => {
   } else {
     settings.selectedAlarm = 6
   }
+  const audio = new Audio()
+  audio.src = settings.selectsdAlarmFile
+  audio.play()
 }
 const down = () => {
   if (settings.selectedAlarm < 6) {
@@ -108,5 +111,8 @@ const down = () => {
   } else {
     settings.selectedAlarm = 1
   }
+  const audio = new Audio()
+  audio.src = settings.selectsdAlarmFile
+  audio.play()
 }
 </script>
